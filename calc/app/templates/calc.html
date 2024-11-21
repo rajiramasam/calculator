@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 300px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .heading {
+            text-align: center;
+            font-size: 24px;
+            padding: 15px;
+            background-color: #6200ea;
+            color: white;
+        }
+
+        .calculator {
+            padding: 20px;
+        }
+
+        .display {
+            height: 60px;
+            background-color: #e8e8e8;
+            color: black;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .button {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            text-align: center;
+            font-size: 18px;
+            padding: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .clear {
+            background-color: #ff1744;
+            color: white;
+        }
+
+        .clear:hover {
+            background-color: #ff4569;
+        }
+
+        .operator {
+            background-color: #6200ea;
+            color: white;
+        }
+
+        .operator:hover {
+            background-color: #7b1fa2;
+        }
+
+        .equal {
+            background-color: #00c853;
+            color: white;
+        }
+
+        .equal:hover {
+            background-color: #5efc82;
+        }
+
+        .zero {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heading">Calculator</div>
+        <div class="calculator">
+            <div class="display" id="display">0</div>
+            <div class="buttons">
+                <button class="button clear" onclick="clearDisplay()">C</button>
+                <button class="button operator" onclick="appendOperator('/')">/</button>
+                <button class="button operator" onclick="appendOperator('*')">*</button>
+                <button class="button operator" onclick="appendOperator('-')">-</button>
+
+                <button class="button" onclick="appendNumber('7')">7</button>
+                <button class="button" onclick="appendNumber('8')">8</button>
+                <button class="button" onclick="appendNumber('9')">9</button>
+                <button class="button operator" onclick="appendOperator('+')">+</button>
+
+                <button class="button" onclick="appendNumber('4')">4</button>
+                <button class="button" onclick="appendNumber('5')">5</button>
+                <button class="button" onclick="appendNumber('6')">6</button>
+                <button class="button equal" onclick="calculateResult()">=</button>
+
+                <button class="button" onclick="appendNumber('1')">1</button>
+                <button class="button" onclick="appendNumber('2')">2</button>
+                <button class="button" onclick="appendNumber('3')">3</button>
+                <button class="button zero" onclick="appendNumber('0')">0</button>
+                <button class="button" onclick="appendDecimal()">.</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Clear the display
+        function clearDisplay() {
+            document.getElementById('display').textContent = '0';
+        }
+
+        // Append a number to the display
+        function appendNumber(number) {
+            const display = document.getElementById('display');
+            if (display.textContent === '0') {
+                display.textContent = number;
+            } else {
+                display.textContent += number;
+            }
+        }
+
+        // Append an operator to the display
+        function appendOperator(operator) {
+            const display = document.getElementById('display');
+            display.textContent += ` ${operator} `;
+        }
+
+        // Append a decimal point to the display
+        function appendDecimal() {
+            const display = document.getElementById('display');
+            if (!display.textContent.includes('.')) {
+                display.textContent += '.';
+            }
+        }
+
+        // Calculate the result
+        function calculateResult() {
+            const display = document.getElementById('display');
+            try {
+                const result = eval(display.textContent.replace(/\s+/g, ''));
+                display.textContent = result;
+            } catch {
+                display.textContent = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
